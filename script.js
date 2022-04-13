@@ -1,13 +1,19 @@
-const boardArray = [
-    [2,2,2],
-    [1,1,0],
-    [6,1,3]
-];
+// const Player = (mark) = {
+    
+// }
 
+const gameBoard = (function() {
+    function render() {
+        const gameBoardArray = Array.from(document.querySelectorAll('td'));
+        // I'm making a tic-tac-toe gameboard mock. Dots represent
+        // empty cells.
+        gameBoardArray.forEach(elem => elem.textContent = '.');
+        return gameBoardArray;
+    }
 
-function test(matrix, col) {
-    let col 
+return {
+    render
 }
+})();
 
-console.log(test(boardArray));
-
+gameBoard.render();
