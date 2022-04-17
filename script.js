@@ -29,30 +29,6 @@ gameBoard.render();
 
 const humanPlayer = player();
 humanPlayer.chooseMark();
-console.log(`human ${humanPlayer.mark}`);
 
-
-//const computerPlayer  = player();
-//computerPlayer.mark = humanPlayer.mark = 'x' ? 'o' : 'x';
-
-//console.log(`human: ${humanPlayer.mark}; computer: ${computerPlayer.mark}`)
-
-/*
-const greeter = () => {
-    return {
-        mark: this.mark, 
-        greet() {
-            const btns = Array.from(document.querySelectorAll('.x'));
-            btns.forEach(btn => btn.addEventListener('click', (e) => {
-                this.mark = e.target.id;
-                //name = 'q';
-                //console.log(e.target)
-            }))
-            //return `Hi, my name is ${name}`;
-        }
-    }
-}
-
-const human = greeter();
-human.greet();
-*/
+const computerPlayer = player();
+computerPlayer.mark = humanPlayer.mark === 'x' ? 'o' : 'x';
