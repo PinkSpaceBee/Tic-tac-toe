@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // a factory function for creating players
 const player = () => {
@@ -29,17 +29,31 @@ const player = () => {
 
 // gameboard module
 const gameBoard = (function() {
+    const gameBoardArray = Array.from(document.querySelectorAll('td'));
     function render() {
-        const gameBoardArray = Array.from(document.querySelectorAll('td'));
-        // I'm making a tic-tac-toe gameboard mock. Dots represent
-        // empty cells.
-        gameBoardArray.forEach(elem => elem.textContent = '.');
+        // I'm making a tic-tac-toe gameboard mock. Dots represent empty cells.
+        gameBoardArray.forEach(elem => elem.textContent = '');
         return gameBoardArray;
     }
 
 return {
+    gameBoardArray,
     render
 }
+})();
+
+// game controller module
+const gameController = (function() {
+    function makeMove() {
+        gameBoard.gameBoardArray.forEach((cell) => cell.addEventListener('click', (e) => {
+            e.target.textContent = humanPlayer.mark;
+            //console.log(gameBoard.gameBoardArray.indexOf(e.target));
+        }))
+    }
+
+    return {
+        makeMove
+    }
 })();
 
 gameBoard.render();
@@ -48,3 +62,5 @@ const humanPlayer = player();
 const computerPlayer = player();
 
 humanPlayer.chooseMark();
+
+gameController.makeMove();
