@@ -44,15 +44,57 @@ return {
 
 // game controller module
 const gameController = (function() {
-    function makeMove() {
-        gameBoard.gameBoardArray.forEach((cell) => cell.addEventListener('click', (e) => {
+    const gameboard = gameBoard.gameBoardArray;
+
+    function makeMoveHuman() {
+        gameboard.forEach(cell => cell.addEventListener('click', (e) => {
             e.target.textContent = humanPlayer.mark;
-            //console.log(gameBoard.gameBoardArray.indexOf(e.target));
         }))
     }
 
+    function makeMoveComputer() {
+
+        function checkTurn() {
+            const humanMarks = gameboard.map(cell => cell.textContent)
+            .filter(cell => cell == humanPlayer.mark);
+
+            const computerMarks = gameboard.map(cell => cell.textContent)
+            .filter(cell => cell == computerPlayer.mark);
+
+            return humanMarks.length > computerMarks.length;
+        }
+
+        function getEmptyCells() {
+            let emptyCells = gameboard.map(cell => cell.textContent)
+            .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
+
+            return emptyCells;
+        }
+
+        function getRandomCell(max) {
+            max = Math.floor(max);
+            // check if I need +1 in this line 
+            return Math.floor(Math.random() * max);
+        }
+
+        gameboard.forEach(cell => cell.addEventListener('click', () => {
+            if (checkTurn()) {
+
+                const emptyCells = getEmptyCells();
+                let randomCell = getRandomCell(emptyCells.length);
+
+                let temp = emptyCells[randomCell];
+
+                gameboard[temp].textContent = computerPlayer.mark;
+
+            };
+        }));
+    }
+
     return {
-        makeMove
+        gameboard,
+        makeMoveHuman,
+        makeMoveComputer
     }
 })();
 
@@ -63,4 +105,5 @@ const computerPlayer = player();
 
 humanPlayer.chooseMark();
 
-gameController.makeMove();
+gameController.makeMoveHuman();
+gameController.makeMoveComputer();
