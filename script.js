@@ -48,7 +48,10 @@ const gameController = (function() {
 
     function makeMoveHuman() {
         gameboard.forEach(cell => cell.addEventListener('click', (e) => {
-            e.target.textContent = humanPlayer.mark;
+            // humanPlayer can place a mark only in an empty cell 
+            if (e.target.textContent === '') {
+                e.target.textContent = humanPlayer.mark;
+            }
         }))
     }
 
@@ -79,14 +82,11 @@ const gameController = (function() {
 
         gameboard.forEach(cell => cell.addEventListener('click', () => {
             if (checkTurn()) {
-
                 const emptyCells = getEmptyCells();
                 let randomCell = getRandomCell(emptyCells.length);
-
                 let temp = emptyCells[randomCell];
 
                 gameboard[temp].textContent = computerPlayer.mark;
-
             };
         }));
     }
