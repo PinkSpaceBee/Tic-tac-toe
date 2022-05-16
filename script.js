@@ -4,11 +4,6 @@
 const gameBoard = (function() {
     const gameBoardArray = Array.from(document.querySelectorAll('td'));
     console.log('gameBoard was called')
-    // but elem.textContent IS empty, why did I write this function? 
-    // function render() {
-    //     gameBoardArray.forEach(elem => elem.textContent = '');
-    //     return gameBoardArray;
-    // }
 
 return {
     gameBoardArray,
@@ -31,13 +26,20 @@ const gameController = (function() {
             makeMoveComputer();
         } else if (computerPlayer.mark === 'o') {
             console.log(`c ${computerPlayer.mark} hMl ${humanMarks.length}`);
-            makeMoveComputer();
+            if (humanMarks.length > computerMarks.length) {
+                makeMoveComputer();
+            }
         }
         console.log(`checkTurnComputer was called`);
     }
 
     function makeMoveComputer() {
-        // count empty cells
+        getEmptyCells();
+        const randomCell = getRandomCell(getEmptyCells().length);
+        const temp = getEmptyCells()[randomCell];;
+
+        gameboard[temp].textContent = computerPlayer.mark;
+
         function getEmptyCells() {
             let emptyCells = gameboard.map(cell => cell.textContent)
             .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
@@ -47,28 +49,16 @@ const gameController = (function() {
         }
 
         function getRandomCell(max) {
-            // wait what? isn't max always an integer?
-            //max = Math.floor(max);
-            const randomInt = Math.floor(Math.random() * max);
-            console.log(`getRandomCell was called ${randomInt}`);
-            return randomInt;
+                const randomInt = Math.floor(Math.random() * max);
+                console.log(`getRandomCell was called ${randomInt}`);
+                return randomInt;
         }
 
-        getEmptyCells();
-        const randomCell = getRandomCell(getEmptyCells().length);
         console.log(`randomCell ${randomCell}`);
-
-        const temp = getEmptyCells()[randomCell];
-        //console.log(temp);
-
-        gameboard[temp].textContent = computerPlayer.mark;
-
         console.log('makeMoveComputer was called');
     }
 
     function makeMoveHuman(callback) {
-        const humanMarks = gameboard.map(cell => cell.textContent)
-        .filter(cell => cell === humanPlayer.mark);
 
         gameboard.forEach(cell => cell.addEventListener('click', (e) => {
             // place a mark in the selected cell if it's empty
@@ -86,6 +76,7 @@ const gameController = (function() {
         makeMoveHuman,
         makeMoveComputer,
         checkTurnComputer,
+        determineWinner,
     }
 })();
 
