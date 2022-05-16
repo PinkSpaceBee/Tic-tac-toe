@@ -18,6 +18,32 @@ return {
 // game controller module
 const gameController = (function() {
     const gameboard = gameBoard.gameBoardArray;
+
+    function checkTurn() {
+        // if human is x { makeMoveHuman ?? what?? it listens to btn click anyway}
+        // if human is o {}
+    };
+    function makeMoveComputer() {
+        // count empty cells
+        // place a mark in a random empty cell 
+        console.log('makeMoveComputer was called')
+    };
+    function makeMoveHuman() {
+        gameboard.forEach(cell => cell.addEventListener('click', (e) => {
+            // place a mark in the selected cell if it's empty
+            if (e.target.textContent === '') {
+                e.target.textContent = humanPlayer.mark;
+            }
+        }))
+        console.log(`makeMoveHuman was called`);
+    };
+
+    function determineWinner() {}
+
+    return {
+        makeMoveHuman,
+        makeMoveComputer
+    }
 })();
 
 // a factory function for creating players
@@ -37,16 +63,17 @@ const player = () => {
 
     return {
         mark: this.mark,
-        // do I have to make markBtns public? check later 
+        // do I need to make markBtns public? check later 
         //markBtns,
-        chooseMark() {
+        chooseMark(callback1, callback2) {
             markBtns.forEach(btn => btn.addEventListener('click', (e) => {
                 this.mark = e.target.id;
                 console.log(`chooseMark was called human ${humanPlayer.mark}`);
+                // as soon as human selects a mark, computer gets a mark assigned to it
+                assignMarkComputer();
+                callback1();
+                callback2();
             }, false));
-
-            // as soon as human selects a mark, computer gets a mark assigned to it
-            markBtns.forEach(btn => btn.addEventListener('click', assignMarkComputer, false));
         }
     }
 }
@@ -56,7 +83,7 @@ const player = () => {
 const humanPlayer = player();
 const computerPlayer = player();
 
-humanPlayer.chooseMark();
+humanPlayer.chooseMark(gameController.makeMoveHuman, gameController.makeMoveComputer);
 
 
 //gameController.makeMoveHuman();
