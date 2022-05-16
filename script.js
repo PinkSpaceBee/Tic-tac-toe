@@ -42,17 +42,26 @@ const gameController = (function() {
             let emptyCells = gameboard.map(cell => cell.textContent)
             .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
 
-            console.log(`getEmptyCells was called ${emptyCells}`);
+            console.log(`getEmptyCells was called ${emptyCells} l ${emptyCells.length}`);
+            return emptyCells;
         }
 
         function getRandomCell(max) {
-            max = Math.floor(max);
-            console.log(`getRandomCell was called`);
-            return Math.floor(Math.random() * max);
+            // wait what? isn't max always an integer?
+            //max = Math.floor(max);
+            const randomInt = Math.floor(Math.random() * max);
+            console.log(`getRandomCell was called ${randomInt}`);
+            return randomInt;
         }
 
         getEmptyCells();
-        getRandomCell();
+        const randomCell = getRandomCell(getEmptyCells().length);
+        console.log(`randomCell ${randomCell}`);
+
+        const temp = getEmptyCells()[randomCell];
+        //console.log(temp);
+
+        gameboard[temp].textContent = computerPlayer.mark;
 
         console.log('makeMoveComputer was called');
     }
