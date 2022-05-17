@@ -22,10 +22,8 @@ const gameController = (function() {
         .filter(cell => cell == computerPlayer.mark);
 
         if (computerPlayer.mark === 'x') {
-            console.log(`c ${computerPlayer.mark} hMl ${humanMarks.length}`);
             makeMoveComputer();
         } else if (computerPlayer.mark === 'o') {
-            console.log(`c ${computerPlayer.mark} hMl ${humanMarks.length}`);
             if (humanMarks.length > computerMarks.length) {
                 makeMoveComputer();
             }
@@ -39,6 +37,8 @@ const gameController = (function() {
         const temp = getEmptyCells()[randomCell];;
 
         gameboard[temp].textContent = computerPlayer.mark;
+        computerPlayer.placedMarks.push(gameboard.indexOf(gameboard[temp]));
+        console.log(`comp indices ${computerPlayer.placedMarks}`);
 
         function getEmptyCells() {
             let emptyCells = gameboard.map(cell => cell.textContent)
@@ -56,6 +56,15 @@ const gameController = (function() {
 
         console.log(`randomCell ${randomCell}`);
         console.log('makeMoveComputer was called');
+
+        // okay wtf is test? ugh when will I learn to give variables meaningful names ffs
+        //const test = [];
+        // gameboard.forEach(cell => {
+        //     //test.push(cell.textContent);
+
+        // });
+
+        determineWinner();
     }
 
     function makeMoveHuman(callback) {
@@ -64,13 +73,20 @@ const gameController = (function() {
             // place a mark in the selected cell if it's empty
             if (e.target.textContent === '') {
                 e.target.textContent = humanPlayer.mark;
-                console.log(`makeMoveHuman was called`);
+
+                // store indices of the humanPlayer marks
+                humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
+                console.log(`makeMoveHuman was called ${humanPlayer.placedMarks}`);
             }
             callback();
         }));
+        determineWinner();
     };
 
-    function determineWinner() {}
+    function determineWinner() {
+        //const winningSequence = [[0,1,2]]
+        console.log('unicorn');
+    }
 
     return {
         makeMoveHuman,
@@ -83,6 +99,7 @@ const gameController = (function() {
 // a factory function for creating players
 const player = () => {
     const markBtns = Array.from(document.querySelectorAll('.js-choose-mark-btn'));
+    const placedMarks = [];
 
     function assignMarkComputer(callback) {
         computerPlayer.mark = humanPlayer.mark === 'x' ? 'o' : 'x';
@@ -99,6 +116,7 @@ const player = () => {
 
     return {
         mark: this.mark,
+        placedMarks,
         chooseMark() {
             markBtns.forEach(btn => btn.addEventListener('click', (e) => {
                 this.mark = e.target.id;
