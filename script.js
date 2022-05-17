@@ -34,9 +34,10 @@ const gameController = (function() {
     function makeMoveComputer() {
         getEmptyCells();
         const randomCell = getRandomCell(getEmptyCells().length);
-        const temp = getEmptyCells()[randomCell];;
+        const temp = getEmptyCells()[randomCell];
 
         gameboard[temp].textContent = computerPlayer.mark;
+
         computerPlayer.placedMarks.push(gameboard.indexOf(gameboard[temp]));
         console.log(`comp indices ${computerPlayer.placedMarks}`);
 
@@ -54,10 +55,9 @@ const gameController = (function() {
                 return randomInt;
         }
 
-        console.log(`randomCell ${randomCell}`);
         console.log('makeMoveComputer was called');
 
-        determineWinner(computerPlayer.placedMarks);
+        //determineWinner(computerPlayer.placedMarks);
         console.log(`is machine winning ${determineWinner(computerPlayer.placedMarks)}`);
         
     }
@@ -71,12 +71,15 @@ const gameController = (function() {
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
-                console.log(`makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
+                console.log(`0 makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
 
-                determineWinner(humanPlayer.placedMarks);
-                console.log(`is human winning ${determineWinner(humanPlayer.placedMarks)}`);
+                //determineWinner(humanPlayer.placedMarks);
+                console.log(`1 is human winning ${determineWinner(humanPlayer.placedMarks)}`);
             }
-            callback();
+            // computer can't place a mark if the game is already finished
+            if (!determineWinner(humanPlayer.placedMarks)) {
+                callback();
+            }
         }));
     };
 
@@ -98,12 +101,15 @@ const gameController = (function() {
         }
 
         function disableGameBoard() {
+            
         }
 
         if (hasWon) {
-            alertWinner();
             highlighWinningCombo();
+            alertWinner();
+            disableGameBoard();
         }
+        return hasWon;
     }
     return {
         makeMoveHuman,
