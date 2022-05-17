@@ -101,7 +101,8 @@ const gameController = (function() {
         }
 
         function disableGameBoard() {
-            
+            // if the game is finished, player can't place marks anymore
+            gameboard.forEach(elem => elem.style.pointerEvents = 'none');
         }
 
         if (hasWon) {
@@ -109,6 +110,7 @@ const gameController = (function() {
             alertWinner();
             disableGameBoard();
         }
+
         return hasWon;
     }
     return {
