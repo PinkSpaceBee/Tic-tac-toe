@@ -57,7 +57,9 @@ const gameController = (function() {
         console.log(`randomCell ${randomCell}`);
         console.log('makeMoveComputer was called');
 
-        //determineWinner();
+        determineWinner(computerPlayer.placedMarks);
+        console.log(`is machine winning ${determineWinner(computerPlayer.placedMarks)}`);
+        
     }
 
     function makeMoveHuman(callback) {
@@ -72,7 +74,7 @@ const gameController = (function() {
                 console.log(`makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
 
                 determineWinner(humanPlayer.placedMarks);
-                console.log(`is human winning ${determineWinner(humanPlayer.placedMarks)}`)
+                console.log(`is human winning ${determineWinner(humanPlayer.placedMarks)}`);
             }
             callback();
         }));
@@ -91,11 +93,16 @@ const gameController = (function() {
 
         function highlighWinningCombo() {
             // yeah I stopped caring about variable names
-            
+            // a mock; will add actual styles later
+            hasWon.forEach(elem => gameboard[elem].style.backgroundColor = 'yellow');          
+        }
+
+        function disableGameBoard() {
         }
 
         if (hasWon) {
             alertWinner();
+            highlighWinningCombo();
         }
     }
     return {
