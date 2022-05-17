@@ -57,14 +57,7 @@ const gameController = (function() {
         console.log(`randomCell ${randomCell}`);
         console.log('makeMoveComputer was called');
 
-        // okay wtf is test? ugh when will I learn to give variables meaningful names ffs
-        //const test = [];
-        // gameboard.forEach(cell => {
-        //     //test.push(cell.textContent);
-
-        // });
-
-        determineWinner();
+        //determineWinner();
     }
 
     function makeMoveHuman(callback) {
@@ -76,23 +69,40 @@ const gameController = (function() {
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
-                console.log(`makeMoveHuman was called ${humanPlayer.placedMarks}`);
+                console.log(`makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
+
+                determineWinner(humanPlayer.placedMarks);
+                console.log(`is human winning ${determineWinner(humanPlayer.placedMarks)}`)
             }
             callback();
         }));
-        determineWinner();
     };
 
-    function determineWinner() {
-        //const winningSequence = [[0,1,2]]
-        console.log('unicorn');
-    }
+    function determineWinner(sequence) {
+        const winningSequences = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
+        // I spend ungodly amounts of time thinking of variable names. Like, how should I name this one? winningCells? hasWon? winCombo? Aaaaagrh. currentWin? Ah whatever
+        const hasWon = winningSequences.find(
+            subarray => subarray.every((elem) => sequence.includes(elem))
+        );
 
+        function alertWinner() {
+            alert `shit I've got a headache`;
+        }
+
+        function highlighWinningCombo() {
+            // yeah I stopped caring about variable names
+            
+        }
+
+        if (hasWon) {
+            alertWinner();
+        }
+    }
     return {
         makeMoveHuman,
         makeMoveComputer,
         checkTurnComputer,
-        determineWinner,
+        //determineWinner,
     }
 })();
 
@@ -134,10 +144,9 @@ const computerPlayer = player();
 humanPlayer.chooseMark();
 
 gameController.makeMoveHuman(gameController.makeMoveComputer);
-//gameController.checkTurnComputer();
 
 //oh great I broke something. 
-//Found a bag. Apparently if randomCell equals 0, computer can make the first move even if its mark is o. Yep, I managed to reproduce it. Wellll, how do I fix it? I suppose the computer thinks that the cell is empty and makes a move. Player, in his turn, sees that the cell is taken and doesn't mark it. I don't like that the functions execute in the wrong order. If not for that, I wouldn't encounter these issues. 
+
 // Umm 'redeclaration of const player'? Where? I commented the whole fucking code and I still get this syntax error. Ooooh I get it now. It's rather funny - I happened to accidentally duplicate the part of the html markup that includes script tag, so I basically tried to open script.js file twice, that's why I kept getting the error on the line 1. Funny stuff actually. 
 
 
