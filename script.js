@@ -33,9 +33,11 @@ const gameController = (function() {
 
         if (computerPlayer.mark === 'x') {
             makeMoveComputer();
-        } else if (computerPlayer.mark === 'o') {
-            if (humanMarks.length > computerMarks.length) {
+        } else if (computerPlayer.mark === 'o' && !determineWinner(humanPlayer.placedMarks)) {
+            if (humanMarks.length > computerMarks.length ) {
                 makeMoveComputer();
+                console.log(`0 hasWon ${humanPlayer.placedMarks}`);
+                console.log(`0 hasWon ${determineWinner(humanPlayer.placedMarks)}`);
             }
         }
         console.log(`checkTurnComputer was called`);
@@ -72,10 +74,10 @@ const gameController = (function() {
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
-                console.log(`0 makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
             }
             //computer can't place a mark if the game is already finished
             if (!determineWinner(humanPlayer.placedMarks)) {
+                //console.log(`computer can move ${!determineWinner(humanPlayer.placedMarks)}`);
                 callback();
             }
             //callback();
@@ -96,7 +98,8 @@ const gameController = (function() {
         );
 
         function alertWinner() {
-            alert `shit I've got a headache`;
+            // a mock
+            alert `win`;
         }
 
         function highlighWinningCombo() {
@@ -110,19 +113,17 @@ const gameController = (function() {
             gameboard.forEach(elem => elem.style.pointerEvents = 'none');
         }
 
-        if (hasWon) {
-            highlighWinningCombo();
-            alertWinner();
-            disableGameBoard();
-        }
+
 
         // if there's no empty cells left and no winner then it's a draw
         if (getEmptyCellsDW.emptyCells.length === 0 && !hasWon) {
             // a mock. I'll add some pop up later I guess. 
             alert ('drrrrraw');
             console.log(`hasWon ${hasWon} !!hasWon ${!!hasWon}`);
-        } else {
-            hasWon;
+        } else if (hasWon) {
+            highlighWinningCombo();
+            alertWinner();
+            disableGameBoard();
         }
     }
 
@@ -159,7 +160,7 @@ const player = () => {
             markBtns.forEach(btn => btn.addEventListener('click', (e) => {
                 this.mark = e.target.id;
                 console.log(`chooseMark was called human ${humanPlayer.mark}`);
-                // as soon as human selects a mark, computer gets a mark assigned to it
+                // as soon as human selects a mark, computer gets a mark assigned to it and checks if it's computer's turn to make a move
                 assignMarkComputer(gameController.checkTurnComputer);
             }, false));
         }
@@ -171,11 +172,14 @@ const computerPlayer = player();
 
 humanPlayer.chooseMark();
 
-gameController.makeMoveHuman(gameController.makeMoveComputer);
+gameController.makeMoveHuman(gameController.checkTurnComputer);
+//gameController.makeMoveHuman(gameController.checkTurnComputer);
 
 //oh great I broke something. 
 
-// Umm 'redeclaration of const player'? Where? I commented the whole fucking code and I still get this syntax error. Ooooh I get it now. It's rather funny - I happened to accidentally duplicate the part of the html markup that includes script tag, so I basically tried to open script.js file twice, that's why I kept getting the error on the line 1. Funny stuff actually. 
+// Umm 'redeclaration of const player'? Where? I commented the whole fucking code and I still get this syntax error. Ooooh I get it now. It's rather funny - I happened to accidentally duplicate the part of the html markup that includes script tag, so I basically tried to open script.js file twice, that's why I kept getting the error on the line 1. Funny stuff actually.
+
+// Oh shit. It appears that I've been invoking the funking function and not just assigning it to a variable, ffs. If you use (), you call the function, that's it. Okay. now that I know that I had been invoking the function an ungodly number of times, now what? 
 
 
 
