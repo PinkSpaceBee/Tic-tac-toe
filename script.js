@@ -3,7 +3,6 @@
 // gameboard module
 const gameBoard = (function() {
     const gameBoardArray = Array.from(document.querySelectorAll('td'));
-    console.log('gameBoard was called')
 
 return {
     gameBoardArray,
@@ -13,6 +12,21 @@ return {
 // game controller module
 const gameController = (function() {
     const gameboard = gameBoard.gameBoardArray;
+
+    function getEmptyCells() {
+        let emptyCells = gameboard.map(cell => cell.textContent)
+        .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
+
+        //let length = emptyCells.length;
+
+        console.log(`getEmptyCells was called ${emptyCells}`);
+
+        return {
+            emptyCells,
+        };
+
+        //return emptyCells;
+    }
 
     function checkTurnComputer() {
         const humanMarks = gameboard.map(cell => cell.textContent)
@@ -32,22 +46,21 @@ const gameController = (function() {
     }
 
     function makeMoveComputer() {
-        getEmptyCells();
-        const randomCell = getRandomCell(getEmptyCells().length);
-        const temp = getEmptyCells()[randomCell];
+        //const randomCell = getRandomCell(getEmptyCells().length);
+        //const temp = getEmptyCells()[randomCell];
+        //getEmptyCells();
+        // wow my code is getting messy again. it desperately needs some cleaning. 
+
+        const getEmptyCellsComp = getEmptyCells();
+
+        const randomCell = getRandomCell(getEmptyCellsComp.emptyCells.length);
+        const temp = getEmptyCellsComp.emptyCells[randomCell];
+
+        console.log(`test cells ${getEmptyCellsComp.emptyCells} l ${getEmptyCellsComp.emptyCells.length}`);
 
         gameboard[temp].textContent = computerPlayer.mark;
-
+        // array with indices of cells marked by computer
         computerPlayer.placedMarks.push(gameboard.indexOf(gameboard[temp]));
-        console.log(`comp indices ${computerPlayer.placedMarks}`);
-
-        function getEmptyCells() {
-            let emptyCells = gameboard.map(cell => cell.textContent)
-            .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
-
-            console.log(`getEmptyCells was called ${emptyCells} l ${emptyCells.length}`);
-            return emptyCells;
-        }
 
         function getRandomCell(max) {
                 const randomInt = Math.floor(Math.random() * max);
@@ -58,8 +71,9 @@ const gameController = (function() {
         console.log('makeMoveComputer was called');
 
         //determineWinner(computerPlayer.placedMarks);
-        console.log(`is machine winning ${determineWinner(computerPlayer.placedMarks)}`);
+        console.log(`is machine winning ${determineWinner(computerPlayer.placedMarks, getEmptyCells.emptyCellsLength)}`);
         
+        return getEmptyCells();
     }
 
     function makeMoveHuman(callback) {
@@ -74,7 +88,7 @@ const gameController = (function() {
                 console.log(`0 makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
 
                 //determineWinner(humanPlayer.placedMarks);
-                console.log(`1 is human winning ${determineWinner(humanPlayer.placedMarks)}`);
+                console.log(`is human winning ${determineWinner(humanPlayer.placedMarks)}`);
             }
             // computer can't place a mark if the game is already finished
             if (!determineWinner(humanPlayer.placedMarks)) {
@@ -84,6 +98,11 @@ const gameController = (function() {
     };
 
     function determineWinner(sequence) {
+        // OH SHIT FORGOT ABOUT DRAW
+        // well I can check for empty cells. If there no empty cells left and hasWon is undefined then it's a draw. BTW where did I picked up this draw thing? Since when I call it a draw and not a tie?
+
+        const getEmptyCellsDW = getEmptyCells();
+
         const winningSequences = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
         // I spend ungodly amounts of time thinking of variable names. Like, how should I name this one? winningCells? hasWon? winCombo? Aaaaagrh. currentWin? Ah whatever
         const hasWon = winningSequences.find(
@@ -111,8 +130,14 @@ const gameController = (function() {
             disableGameBoard();
         }
 
+        // if there's no empty cells left and no winner then it's a draw
+        if (getEmptyCellsDW.emptyCells.length === 0) {
+            // a mock. I'll add some pop up later I guess. 
+            alert ('drrrrraw');
+        }
         return hasWon;
     }
+
     return {
         makeMoveHuman,
         makeMoveComputer,
