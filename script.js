@@ -17,15 +17,11 @@ const gameController = (function() {
         let emptyCells = gameboard.map(cell => cell.textContent)
         .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
 
-        //let length = emptyCells.length;
-
         console.log(`getEmptyCells was called ${emptyCells}`);
 
         return {
             emptyCells,
         };
-
-        //return emptyCells;
     }
 
     function checkTurnComputer() {
@@ -46,34 +42,25 @@ const gameController = (function() {
     }
 
     function makeMoveComputer() {
-        //const randomCell = getRandomCell(getEmptyCells().length);
-        //const temp = getEmptyCells()[randomCell];
-        //getEmptyCells();
-        // wow my code is getting messy again. it desperately needs some cleaning. 
-
         const getEmptyCellsComp = getEmptyCells();
 
         const randomCell = getRandomCell(getEmptyCellsComp.emptyCells.length);
         const temp = getEmptyCellsComp.emptyCells[randomCell];
 
-        console.log(`test cells ${getEmptyCellsComp.emptyCells} l ${getEmptyCellsComp.emptyCells.length}`);
-
         gameboard[temp].textContent = computerPlayer.mark;
+
         // array with indices of cells marked by computer
         computerPlayer.placedMarks.push(gameboard.indexOf(gameboard[temp]));
 
         function getRandomCell(max) {
-                const randomInt = Math.floor(Math.random() * max);
-                console.log(`getRandomCell was called ${randomInt}`);
-                return randomInt;
+            const randomInt = Math.floor(Math.random() * max);
+            return randomInt;
         }
 
         console.log('makeMoveComputer was called');
-
-        //determineWinner(computerPlayer.placedMarks);
-        console.log(`is machine winning ${determineWinner(computerPlayer.placedMarks, getEmptyCells.emptyCellsLength)}`);
-        
-        return getEmptyCells();
+        // if I don't call this function here, a draw doesn't get announced for some reason
+        //return getEmptyCells();
+        determineWinner(computerPlayer.placedMarks);
     }
 
     function makeMoveHuman(callback) {
@@ -86,14 +73,13 @@ const gameController = (function() {
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
                 console.log(`0 makeMoveHuman was called ${humanPlayer.placedMarks} ${Array.isArray(humanPlayer.placedMarks)}`);
-
-                //determineWinner(humanPlayer.placedMarks);
-                console.log(`is human winning ${determineWinner(humanPlayer.placedMarks)}`);
             }
-            // computer can't place a mark if the game is already finished
+            //computer can't place a mark if the game is already finished
             if (!determineWinner(humanPlayer.placedMarks)) {
                 callback();
             }
+            //callback();
+            //determineWinner(humanPlayer.placedMarks);
         }));
     };
 
@@ -131,11 +117,13 @@ const gameController = (function() {
         }
 
         // if there's no empty cells left and no winner then it's a draw
-        if (getEmptyCellsDW.emptyCells.length === 0) {
+        if (getEmptyCellsDW.emptyCells.length === 0 && !hasWon) {
             // a mock. I'll add some pop up later I guess. 
             alert ('drrrrraw');
+            console.log(`hasWon ${hasWon} !!hasWon ${!!hasWon}`);
+        } else {
+            hasWon;
         }
-        return hasWon;
     }
 
     return {
