@@ -13,6 +13,8 @@ return {
 const gameController = (function() {
     const gameboard = gameBoard.gameBoardArray;
 
+    restartGame();
+
     function getEmptyCells() {
         let emptyCells = gameboard.map(cell => cell.textContent)
         .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
@@ -22,9 +24,14 @@ const gameController = (function() {
         };
     }
 
-    function determineWinner(sequence) {
-        //const getEmptyCellsDW = getEmptyCells();
+    function restartGame() {
+        // how do I restart a game? well the simplest way is to refresh a page because there are just too many private variables that I would have to make public if I wanted to restart a game without refreshing the page. Buuuut it would be more proper to avoid refreshing the page ig? 
+        // mock
+        const restartBtn = document.querySelector('#js-restart-btn');
+        restartBtn.addEventListener('click', () => {location.reload()});
+    }
 
+    function determineWinner(sequence) {
         const winningSequences = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
         const hasWon = winningSequences.find(
