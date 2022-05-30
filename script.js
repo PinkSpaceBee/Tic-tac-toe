@@ -31,7 +31,7 @@ const gameController = (function() {
         restartBtn.addEventListener('click', () => {location.reload()});
     }
 
-    function determineWinner(sequence) {
+    function determineWinner(sequence, winner) {
         const winningSequences = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
         const hasWon = winningSequences.find(
@@ -49,7 +49,7 @@ const gameController = (function() {
 
         function alertWinner() {
             // a mock. will add an actual pop-up later
-            alert `win`;
+            alert (`${winner} wins`);
         }
 
         if (hasWon) {
@@ -72,11 +72,12 @@ const gameController = (function() {
         const computerMarks = gameboard.map(cell => cell.textContent)
         .filter(cell => cell == computerPlayer.mark);
 
-        if (!determineWinner(humanPlayer.placedMarks)) {
+        if (!determineWinner(humanPlayer.placedMarks, humanPlayer.mark)) {
             if (computerPlayer.mark === 'x') {
                 makeMoveComputer();
             } else if (computerPlayer.mark === 'o') {
                 if (humanMarks.length > computerMarks.length) {
+                    console.log(`human ${humanPlayer.mark}`)
                     makeMoveComputer();
                 }
             }
@@ -99,7 +100,7 @@ const gameController = (function() {
             return randomInt;
         }
 
-        determineWinner(computerPlayer.placedMarks);
+        determineWinner(computerPlayer.placedMarks, computerPlayer.mark);
     }
 
     function makeMoveHuman(callback) {
