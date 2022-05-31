@@ -1,0 +1,48 @@
+body {
+    display: grid;
+    grid-template-rows: 15% auto; 
+    justify-items: center;
+
+    margin: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: mix($cupid, #fff, 40%);;
+
+    table {
+/*
+        @include for-phone-landscape;
+        @include for-phone {
+            width: 34vh;
+            height: 34vh;
+        }
+       
+        @include for-big-desktop;
+        @include for-desktop;
+        @include for-tablet {
+            width: 42vh;
+            height: 42vh;
+        }
+*/
+        border-collapse: collapse;
+        //background-color: $lemon-chiffon;
+        
+        td {
+            height: 10vh;
+            width: 10vh;
+            //border: 1px solid $cupid;
+            padding: 0;
+        }
+
+        .vertical-border {
+            border-left: 0.2rem solid $cupid;
+            border-right: 0.2rem solid $cupid;
+        }
+    
+        .horizontal-border {
+            border-top: 0.2rem solid $cupid;
+            border-bottom: 0.2rem solid $cupid;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+/* COLORS */
+$vis-vis: hsl(49, 100%, 81%);
+$lemon-chiffon: hsl(51, 100%, 90%);
+$cupid:	hsl(339, 86%, 86%);
+
+/* VARIABLES */
+
+/* MIXINS */
+
+/* BREAKPOINTS FOR SCREEN SIZES */
+
+@mixin for-phone {
+    @media (max-width: 599px) { @content; }
+}
+
+@mixin for-phone-landscape {
+    @media(max-width: 768px)
+    and (orientation: landscape) { @content; }
+}
+
+@mixin for-tablet {
+    @media (min-width: 600px) { @content; }
+}
+
+@mixin for-desktop {
+    @media (min-width: 1100px) { @content; }
+}
+
+@mixin for-big-desktop {
+    @media (min-width: 1800px) { @content; }
+}
