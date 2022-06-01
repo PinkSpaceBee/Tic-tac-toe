@@ -3,14 +3,21 @@ $vis-vis: hsl(49, 100%, 81%);
 $lemon-chiffon: hsl(51, 100%, 90%);
 $cupid:	hsl(339, 86%, 86%);
 
-/* VARIABLES */
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;1,500;1,600&display=swap');
 
-/* MIXINS */
+$roboto-mono: 'Roboto Mono', monospace;
+
+$regular: 400;
+$medium: 500;
+$medium-italic: 500 italic;
+$semi-bold-italic: 600 italic;
 
 /* BREAKPOINTS FOR SCREEN SIZES */
 
 @mixin for-phone {
     @media (max-width: 599px) { @content; }
+    //@media screen and (max-width: 600px) { @content; }
 }
 
 @mixin for-phone-landscape {

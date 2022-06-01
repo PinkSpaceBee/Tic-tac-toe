@@ -8,41 +8,69 @@ body {
     width: 100vw;
     height: 100vh;
 
-    background-color: mix($cupid, #fff, 40%);;
+    background-color: $cupid;
 
-    table {
-/*
+    h1 {
+        font: $semi-bold-italic 30px $roboto-mono;
+        color: $lemon-chiffon;
+        text-shadow: 2px 2px #000;
+    }
+
+    main {
+        display: grid;
+        grid-template-rows: 20% auto 20%; 
+        justify-items: center;
+        align-items: start;
+
+        height: 100%;
+
         @include for-phone-landscape;
         @include for-phone {
-            width: 34vh;
-            height: 34vh;
+            height: 70%;
         }
-       
-        @include for-big-desktop;
-        @include for-desktop;
-        @include for-tablet {
-            width: 42vh;
-            height: 42vh;
-        }
-*/
-        border-collapse: collapse;
-        //background-color: $lemon-chiffon;
-        
-        td {
-            height: 10vh;
-            width: 10vh;
-            //border: 1px solid $cupid;
-            padding: 0;
-        }
-
-        .vertical-border {
-            border-left: 0.2rem solid $cupid;
-            border-right: 0.2rem solid $cupid;
-        }
+        table {
+            @include for-phone-landscape;
+            @include for-phone {
+                width: 34vh;
+                height: 34vh;
+            }
+           
+            @include for-big-desktop;
+            @include for-desktop;
+            @include for-tablet {
+                width: 42vh;
+                height: 42vh;
+            }
     
-        .horizontal-border {
-            border-top: 0.2rem solid $cupid;
-            border-bottom: 0.2rem solid $cupid;
+            border-collapse: collapse;
+            
+            td {
+                padding: 0;
+                margin: 0;
+                
+                @include for-phone-landscape;
+                @include for-phone {
+                    width: 30%;
+                    height: 30%;
+                }
+    
+                @include for-big-desktop;
+                @include for-desktop;
+                @include for-tablet {
+                    width: 30%;
+                    height: 30%;
+                }
+            }
+    
+            .vertical-border {
+                border-left: 5px solid mix($cupid, #fff, 60%);
+                border-right: 5px solid mix($cupid, #fff, 60%);
+            }
+        
+            .horizontal-border {
+                border-top: 5px solid mix($cupid, #fff, 60%);
+                border-bottom: 5px solid mix($cupid, #fff, 60%);
+            }
         }
     }
 }

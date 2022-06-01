@@ -1,3 +1,37 @@
 button {
+    height: 6vh;
+    border: 2px solid black;
+
     background-color: $lemon-chiffon;
+    font: $regular 16px $roboto-mono;
+
+    &:hover,
+    &:active {
+        transform: scale(1.1);
+    }
+
+    &:active,
+    &:focus {
+        box-shadow: inset -2px -2px 0 mix($lemon-chiffon, #000, 60%);
+    }
+
+    &.js-choose-mark-btn {
+        width: 16vh;
+
+        margin: 0 1vh;
+        padding: 0;
+
+        font-size: 18px;
+        line-height: 18px;
+        
+        @include for-big-desktop;
+        @include for-desktop;
+        @include for-tablet {
+            margin: 3vh 2vh 0 2vh;
+        }
+    }
+
+    &#js-restart-btn {
+        width: 20vh;
+    }
 }
