@@ -56,7 +56,7 @@ const gameController = (function() {
         if (hasWon) {
             disableGameBoard();
             highlighWinningCombo();
-            alertWinner();
+            //alertWinner();
         // if there are no empty cells left it's a draw
         } else if (getEmptyCells().emptyCells.length === 0) {
             // mock. will add some pop-up later
@@ -84,7 +84,19 @@ const gameController = (function() {
         const randomCell = getRandomCell(getEmptyCellsComp.emptyCells.length);
         const temp = getEmptyCellsComp.emptyCells[randomCell];
 
-        gameboard[temp].textContent = computerPlayer.mark;
+
+        if (computerPlayer.mark === 'x') {
+            const xMark = document.createElement('p');
+            xMark.classList.add('xMark');
+            xMark.textContent = '\u2715';
+
+            gameboard[temp].appendChild(xMark);
+        } else if (computerPlayer.mark === 'o') {
+            const heartIcon = document.createElement('img');
+            heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
+
+            gameboard[temp].appendChild(heartIcon);
+        }
 
         // array with indices of cells marked by computer
         computerPlayer.placedMarks.push(gameboard.indexOf(gameboard[temp]));
@@ -102,10 +114,19 @@ const gameController = (function() {
             // place a mark in the selected cell if it's empty
             if (e.target.textContent === '') {
 
-                const heartIcon = document.createElement('img');
-                heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
+                if (humanPlayer.mark === 'x') {
+                    const xMark = document.createElement('p');
+                    xMark.classList.add('xMark');
+                    xMark.textContent = '\u2715';
 
-                e.target.appendChild(heartIcon);
+                    e.target.appendChild(xMark);
+
+                } else if (humanPlayer.mark === 'o') {
+                    const heartIcon = document.createElement('img');
+                    heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
+    
+                    e.target.appendChild(heartIcon);
+                }
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
