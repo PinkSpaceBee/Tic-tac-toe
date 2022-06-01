@@ -12,6 +12,7 @@ return {
 // game controller module
 const gameController = (function() {
     const gameboard = gameBoard.gameBoardArray;
+    const heartIcon = gameBoard.heartIcon;
 
     restartGame();
 
@@ -66,18 +67,11 @@ const gameController = (function() {
     }
 
     function checkTurnComputer() {
-        const humanMarks = gameboard.map(cell => cell.textContent)
-        .filter(cell => cell == humanPlayer.mark);
-
-        const computerMarks = gameboard.map(cell => cell.textContent)
-        .filter(cell => cell == computerPlayer.mark);
-
         if (!determineWinner(humanPlayer.placedMarks, humanPlayer.mark)) {
             if (computerPlayer.mark === 'x') {
                 makeMoveComputer();
             } else if (computerPlayer.mark === 'o') {
-                if (humanMarks.length > computerMarks.length) {
-                    console.log(`human ${humanPlayer.mark}`)
+                if (humanPlayer.placedMarks.length > computerPlayer.placedMarks.length) {
                     makeMoveComputer();
                 }
             }
@@ -107,10 +101,15 @@ const gameController = (function() {
         gameboard.forEach(cell => cell.addEventListener('click', (e) => {
             // place a mark in the selected cell if it's empty
             if (e.target.textContent === '') {
-                e.target.textContent = humanPlayer.mark;
+
+                const heartIcon = document.createElement('img');
+                heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
+
+                e.target.appendChild(heartIcon);
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
+                console.log(`humanMarks ${humanPlayer.placedMarks.length}`);
                 callback();
             }
         }));
