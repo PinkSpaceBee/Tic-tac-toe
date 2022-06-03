@@ -5,6 +5,11 @@ button {
     background-color: $lemon-chiffon;
     font: $regular 16px $roboto-mono;
 
+    @include for-phone-landscape;
+    @include for-phone {
+        font: $regular 22px $roboto-mono;
+    }
+
     &:hover,
     &:active {
         transform: scale(1.1);
@@ -31,7 +36,34 @@ button {
         }
     }
 
-    &#js-restart-btn {
+    &.js-restart-btn {
         width: 20vh;
+    }
+}
+
+.xMark {
+    margin: auto;
+    font: $medium 50px $roboto-mono;
+    padding-bottom: 8%;
+    line-height: 10px;
+}
+
+.heart-icon {
+    display: block;
+    margin: auto;
+    transform: scale(0.7);
+}
+
+#js-restart-game {
+    display: grid;
+    grid-gap: 0.2em;
+    place-content: center;
+    width: 60vw;
+    height: 26vh;
+    border: 2px solid black;
+    font: $regular 16px $roboto-mono;
+
+    .js-restart-btn {
+        place-self: center;
     }
 }

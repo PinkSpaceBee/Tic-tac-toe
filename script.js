@@ -35,8 +35,9 @@ const gameController = (function() {
     function restartGame() {
         // how do I restart a game? well the simplest way is to refresh a page because there are just too many private variables that I would have to make public if I wanted to restart a game without refreshing the page. Buuuut it would be more proper to avoid refreshing the page ig? 
         // mock
-        const restartBtn = document.querySelector('#js-restart-btn');
-        restartBtn.addEventListener('click', () => {location.reload()});
+        const restartBtn = Array.from(document.querySelectorAll('.js-restart-btn'));
+        restartBtn.forEach(btn => btn.addEventListener('click', () => {location.reload()}));
+        // ok now to find a way to announce the winner
     }
 
     function determineWinner(sequence, winner) {
@@ -56,14 +57,26 @@ const gameController = (function() {
         }
 
         function alertWinner() {
-            // a mock. will add an actual pop-up later
-            alert (`${winner} wins`);
+            const restartPopUp = document.querySelector('#js-restart-game');
+            if (winner === 'x') {
+                const xMark = document.createElement('p');
+                xMark.classList.add('xMark');
+                xMark.innerHTML = '\&times;';
+
+                restartPopUp.prepend(xMark);
+            } else if (winner === 'o') {
+                const heartIcon = document.createElement('img');
+                heartIcon.classList.add('heart-icon');
+                heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
+
+                restartPopUp.prepend(heartIcon);
+            }
         }
 
         if (hasWon) {
             disableGameBoard();
             highlighWinningCombo();
-            //alertWinner();
+            alertWinner();
         // if there are no empty cells left it's a draw
         } else if (getEmptyCells().emptyCells.length === 0) {
             // mock. will add some pop-up later
@@ -115,15 +128,13 @@ const gameController = (function() {
         }
 
         determineWinner(computerPlayer.placedMarks, computerPlayer.mark);
-        console.log(`computerMarks ${computerPlayer.placedMarks.length}`)
     }
 
     function makeMoveHuman(callback) {
         gameboard.forEach(cell => cell.addEventListener('click', (e) => {
 
             // place a mark in the selected cell if it's empty;
-            if (e.target.childNodes.length === 0 && e.target.tagName !== 'IMG') {
-                console.log(`ok wth ${e.target.tagName == 'IMG'}`);
+            if (e.target.childNodes.length === 0 && e.target.tagName !== 'IMG' && humanPlayer.mark !== undefined) {
 
                 if (humanPlayer.mark === 'x') {
                     const xMark = document.createElement('p');
@@ -142,7 +153,7 @@ const gameController = (function() {
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
-                console.log(`humanMarks ${humanPlayer.placedMarks.length} ${humanPlayer.placedMarks}`);
+                console.log(`humanMarks ${humanPlayer.placedMarks.length} ${humanPlayer.placedMarks} ${humanPlayer.mark}`);
                 callback();
             }
         }));

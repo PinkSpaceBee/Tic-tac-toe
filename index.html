@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
         <title>TIC-TAC-TOE</title>
         <link rel="stylesheet" href="styles/css/main.css">
         <script src="script.js" defer></script>
@@ -11,27 +12,40 @@
             TIC-TAC-TOE
         </h1>
         <main>
-            <button class="js-choose-mark-btn" id="x">x</button>
-            <button class="js-choose-mark-btn" id="o">o</button>            
+            <section id="marks-btns">
+                <button class="js-choose-mark-btn" id="x">x</button>
+                <button class="js-choose-mark-btn" id="o">o</button>
+            </section>            
             <table id="js-grid">
                 <tr>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
+                    <td class="vertical-border"></td>
                     <td></td>
                 </tr>
+            
+                <tr>
+                    <td class="horizontal-border"></td>
+                    <td class="vertical-border horizontal-border"></td>
+                    <td class="horizontal-border"></td>
+                </tr>
+            
                 <tr>
                     <td></td>
-                    <td></td>
+                    <td class="vertical-border"></td>
                     <td></td>
                 </tr>
             </table>
-            
-            <button id="js-restart-btn">Restart</button>
+            <section id="restart-btn">
+                <img class ="js-heart" src="https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png"/>
+                <button class="js-restart-btn">RESTART</button>
+                <img class ="js-heart" src="https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png"/>
+            </section>
         </main>
+        <section id="js-pop-ups">
+            <div id="js-restart-game">
+                <p>wins</p>
+                <button class="js-restart-btn">RESTART</button>
+            </div>
+        </section>
     </body>
 </html>

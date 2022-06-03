@@ -1,2 +1,116 @@
-td {
-  border: 1px solid black; }
+/* COLORS */
+/* FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,400;0,500;1,500;1,600&display=swap");
+/* BREAKPOINTS FOR SCREEN SIZES */
+body {
+  display: grid;
+  grid-template-rows: 10% auto 10%;
+  justify-items: center;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fabdd2; }
+  @media (max-width: 599px) {
+    body {
+      grid-template-rows: 15% auto 10%; } }
+  body h1 {
+    font: 600 italic 30px "Roboto Mono", monospace;
+    color: #fff7cc;
+    text-shadow: 2px 2px #000; }
+  body main {
+    display: grid;
+    grid-template-rows: 20% auto 20%;
+    justify-items: center;
+    align-items: center;
+    height: 100%; }
+    @media (max-width: 599px) {
+      body main {
+        height: 70%;
+        grid-gap: 2em; } }
+    body main table {
+      border-collapse: collapse; }
+      @media (max-width: 599px) {
+        body main table {
+          width: 34vh;
+          height: 34vh; } }
+      @media (min-width: 600px) {
+        body main table {
+          width: 42vh;
+          height: 42vh; } }
+      body main table td {
+        padding: 0;
+        margin: 0;
+        font: 400 30px "Roboto Mono", monospace;
+        text-align: center;
+        vertical-align: middle; }
+        @media (max-width: 599px) {
+          body main table td {
+            width: 30%;
+            height: 30%; } }
+        @media (min-width: 600px) {
+          body main table td {
+            width: 30%;
+            height: 30%; } }
+      body main table .vertical-border {
+        border-left: 5px solid #fcd7e4;
+        border-right: 5px solid #fcd7e4; }
+      body main table .horizontal-border {
+        border-top: 5px solid #fcd7e4;
+        border-bottom: 5px solid #fcd7e4; }
+    body main #restart-btn {
+      display: grid;
+      width: 100%;
+      grid-template-columns: 1fr 2fr 1fr;
+      place-items: center; }
+      @media (max-width: 599px) {
+        body main #restart-btn {
+          margin-top: 8vh;
+          width: 90%; } }
+      body main #restart-btn .js-heart {
+        transform: scale(0.7); }
+
+button {
+  height: 6vh;
+  border: 2px solid black;
+  background-color: #fff7cc;
+  font: 400 16px "Roboto Mono", monospace; }
+  @media (max-width: 599px) {
+    button {
+      font: 400 22px "Roboto Mono", monospace; } }
+  button:hover, button:active {
+    transform: scale(1.1); }
+  button:active, button:focus {
+    box-shadow: inset -2px -2px 0 #99947a; }
+  button.js-choose-mark-btn {
+    width: 16vh;
+    margin: 0 1vh;
+    padding: 0;
+    font-size: 18px;
+    line-height: 18px; }
+    @media (min-width: 600px) {
+      button.js-choose-mark-btn {
+        margin: 3vh 2vh 0 2vh; } }
+  button.js-restart-btn {
+    width: 20vh; }
+
+.xMark {
+  margin: auto;
+  font: 500 50px "Roboto Mono", monospace;
+  padding-bottom: 8%;
+  line-height: 10px; }
+
+.heart-icon {
+  display: block;
+  margin: auto;
+  transform: scale(0.7); }
+
+#js-restart-game {
+  display: grid;
+  grid-gap: 0.2em;
+  place-content: center;
+  width: 60vw;
+  height: 26vh;
+  border: 2px solid black;
+  font: 400 16px "Roboto Mono", monospace; }
+  #js-restart-game .js-restart-btn {
+    place-self: center; }

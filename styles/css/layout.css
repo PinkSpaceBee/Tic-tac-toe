@@ -1,0 +1,12 @@
+body {
+  display: grid;
+  grid-template-rows: 15% auto;
+  justify-items: center;
+  margin: 0;
+  width: 100vw;
+  height: 100vh; }
+  body table {
+    width: 30vh;
+    height: 30vh; }
+    body table td {
+      border: 1px solid black; }

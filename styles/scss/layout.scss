@@ -1,6 +1,10 @@
 body {
     display: grid;
-    grid-template-rows: 15% auto; 
+    grid-template-rows: 10% auto 10%; 
+    @include for-phone-landscape;
+    @include for-phone {
+        grid-template-rows: 15% auto 10%; 
+    }
     justify-items: center;
 
     margin: 0;
@@ -20,14 +24,16 @@ body {
         display: grid;
         grid-template-rows: 20% auto 20%; 
         justify-items: center;
-        align-items: start;
+        align-items: center;
 
         height: 100%;
 
         @include for-phone-landscape;
         @include for-phone {
             height: 70%;
+            grid-gap: 2em;
         }
+
         table {
             @include for-phone-landscape;
             @include for-phone {
@@ -47,6 +53,10 @@ body {
             td {
                 padding: 0;
                 margin: 0;
+
+                font: $regular 30px $roboto-mono;
+                text-align: center;
+                vertical-align: middle;
                 
                 @include for-phone-landscape;
                 @include for-phone {
@@ -70,6 +80,23 @@ body {
             .horizontal-border {
                 border-top: 5px solid mix($cupid, #fff, 60%);
                 border-bottom: 5px solid mix($cupid, #fff, 60%);
+            }
+        }
+
+        #restart-btn {
+            display: grid;
+            width: 100%;
+            grid-template-columns: 1fr 2fr 1fr;
+            place-items: center;
+
+            @include for-phone-landscape;
+            @include for-phone {
+                margin-top: 8vh;
+                width: 90%;
+            }
+
+            .js-heart {
+                transform: scale(0.7);
             }
         }
     }

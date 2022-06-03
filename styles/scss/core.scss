@@ -4,10 +4,12 @@ $lemon-chiffon: hsl(51, 100%, 90%);
 $cupid:	hsl(339, 86%, 86%);
 
 /* FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,500;1,500;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,400;0,500;1,500;1,600&display=swap');
 
 $roboto-mono: 'Roboto Mono', monospace;
 
+$thin: 100;
+$extra-light: 200;
 $regular: 400;
 $medium: 500;
 $medium-italic: 500 italic;
