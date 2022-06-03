@@ -12,13 +12,20 @@ return {
 // game controller module
 const gameController = (function() {
     const gameboard = gameBoard.gameBoardArray;
-    const heartIcon = gameBoard.heartIcon;
 
     restartGame();
 
     function getEmptyCells() {
-        let emptyCells = gameboard.map(cell => cell.textContent)
-        .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
+        // oh I see the issue. The textContent property of the <3 cells is empty. Okay, what is the way around it? Well since I append a child to a cell when I place a mark in it, I can check if the cell has children
+
+        //let testEmpty = gameboard
+        // let emptyCells = gameboard.map(cell => cell.textContent)
+        // .reduce((arr, elem, index) => {if (elem === '') arr.push(index); return arr;}, []);
+
+        let emptyCells = gameboard.reduce((arr, elem, index) => {if (elem.childNodes.length === 0) arr.push(index); return arr;}, []);
+
+
+        console.log(`getEmptyC was called ${emptyCells}`);
 
         return {
             emptyCells,
@@ -88,11 +95,12 @@ const gameController = (function() {
         if (computerPlayer.mark === 'x') {
             const xMark = document.createElement('p');
             xMark.classList.add('xMark');
-            xMark.textContent = '\u2715';
+            xMark.innerHTML = '\&times;';
 
             gameboard[temp].appendChild(xMark);
         } else if (computerPlayer.mark === 'o') {
             const heartIcon = document.createElement('img');
+            heartIcon.classList.add('heart-icon');
             heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
 
             gameboard[temp].appendChild(heartIcon);
@@ -107,22 +115,26 @@ const gameController = (function() {
         }
 
         determineWinner(computerPlayer.placedMarks, computerPlayer.mark);
+        console.log(`computerMarks ${computerPlayer.placedMarks.length}`)
     }
 
     function makeMoveHuman(callback) {
         gameboard.forEach(cell => cell.addEventListener('click', (e) => {
-            // place a mark in the selected cell if it's empty
-            if (e.target.textContent === '') {
+
+            // place a mark in the selected cell if it's empty;
+            if (e.target.childNodes.length === 0 && e.target.tagName !== 'IMG') {
+                console.log(`ok wth ${e.target.tagName == 'IMG'}`);
 
                 if (humanPlayer.mark === 'x') {
                     const xMark = document.createElement('p');
                     xMark.classList.add('xMark');
-                    xMark.textContent = '\u2715';
+                    xMark.innerHTML = '\&times;';
 
                     e.target.appendChild(xMark);
 
                 } else if (humanPlayer.mark === 'o') {
                     const heartIcon = document.createElement('img');
+                    heartIcon.classList.add('heart-icon');
                     heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
     
                     e.target.appendChild(heartIcon);
@@ -130,7 +142,7 @@ const gameController = (function() {
 
                 // store indices of the humanPlayer marks
                 humanPlayer.placedMarks.push(gameboard.indexOf(e.target));
-                console.log(`humanMarks ${humanPlayer.placedMarks.length}`);
+                console.log(`humanMarks ${humanPlayer.placedMarks.length} ${humanPlayer.placedMarks}`);
                 callback();
             }
         }));
