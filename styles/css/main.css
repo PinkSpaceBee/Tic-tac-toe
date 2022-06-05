@@ -71,7 +71,8 @@ body {
 
 button {
   height: 6vh;
-  border: 2px solid black;
+  border-style: dotted;
+  box-shadow: 2px 2px;
   background-color: #fff7cc;
   font: 400 16px "Roboto Mono", monospace; }
   @media (max-width: 599px) {
@@ -80,7 +81,7 @@ button {
   button:hover, button:active {
     transform: scale(1.1); }
   button:active, button:focus {
-    box-shadow: inset -2px -2px 0 #99947a; }
+    box-shadow: inset -3px -3px 0 #99947a; }
   button.js-choose-mark-btn {
     width: 16vh;
     margin: 0 1vh;
@@ -105,12 +106,34 @@ button {
   transform: scale(0.7); }
 
 #js-restart-game {
-  display: grid;
-  grid-gap: 0.2em;
+  display: none;
+  grid-template-areas: "mark text" "foot foot";
   place-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
   width: 60vw;
-  height: 26vh;
-  border: 2px solid black;
-  font: 400 16px "Roboto Mono", monospace; }
+  max-width: 360px;
+  height: 22vh;
+  padding-bottom: 1em;
+  border-style: outset;
+  font: 400 22px "Roboto Mono", monospace;
+  background-color: #fcd7e4; }
   #js-restart-game .js-restart-btn {
+    grid-area: foot;
     place-self: center; }
+
+.highlight {
+  background-color: #fff7cc; }
+
+#js-darken-bg {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  background-color: #96717e;
+  opacity: 0.6; }

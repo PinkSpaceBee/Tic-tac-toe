@@ -1,6 +1,7 @@
 button {
     height: 6vh;
-    border: 2px solid black;
+    border-style: dotted;
+    box-shadow: 2px 2px;
 
     background-color: $lemon-chiffon;
     font: $regular 16px $roboto-mono;
@@ -17,7 +18,7 @@ button {
 
     &:active,
     &:focus {
-        box-shadow: inset -2px -2px 0 mix($lemon-chiffon, #000, 60%);
+        box-shadow: inset -3px -3px 0 mix($lemon-chiffon, #000, 60%);
     }
 
     &.js-choose-mark-btn {
@@ -55,15 +56,50 @@ button {
 }
 
 #js-restart-game {
-    display: grid;
-    grid-gap: 0.2em;
+    display: none;
+    grid-template-areas: 
+    "mark text"
+    "foot foot";
+
     place-content: center;
+
+    position:absolute;
+    top:50%;
+    //left:50%;
+    transform:translate(-50%, -50%);
+    z-index: 2;
+
     width: 60vw;
-    height: 26vh;
-    border: 2px solid black;
-    font: $regular 16px $roboto-mono;
+    max-width: 360px;
+    height: 22vh;
+
+    padding-bottom: 1em; 
+    border-style: outset;
+    font: $regular 22px $roboto-mono;
+
+    background-color: mix($cupid, #fff, 60%);
 
     .js-restart-btn {
+        grid-area: foot;        
         place-self: center;
-    }
+        }
+}
+
+.highlight {
+    background-color: $lemon-chiffon
+}
+
+#js-darken-bg {
+    display: none;
+
+    position:fixed;
+    top:0;
+    left:0;
+    z-index: 1;
+
+    height: 100vh;
+    width: 100vw;
+
+    background-color: mix($cupid, #000, 60%);
+    opacity: 0.6;
 }
