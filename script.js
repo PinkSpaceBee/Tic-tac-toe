@@ -41,6 +41,9 @@ const gameController = (function() {
     }
 
     function determineWinner(sequence, winner) {
+        const restartPopUp = document.querySelector('#js-restart-game');
+        const darkBackground = document.querySelector('#js-darken-bg');
+
         const winningSequences = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
         const hasWon = winningSequences.find(
@@ -57,34 +60,42 @@ const gameController = (function() {
         }
 
         function alertWinner() {
-            const restartPopUp = document.querySelector('#js-restart-game');
-            const darkBackground = document.querySelector('#js-darken-bg');
-
             restartPopUp.style.display = 'grid';
             darkBackground.style.display = 'grid';
+
+            const win = document.createElement('p');
+
             if (winner === 'x') {
                 const xMark = document.createElement('p');
                 xMark.classList.add('xMark');
                 xMark.innerHTML = '\&times;';
+                win.textContent = `wins`;
 
+                restartPopUp.prepend(win);
                 restartPopUp.prepend(xMark);
             } else if (winner === 'o') {
                 const heartIcon = document.createElement('img');
                 heartIcon.classList.add('heart-icon');
                 heartIcon.src = "https://img.icons8.com/ios-filled/50/undefined/pixel-heart.png";
+                win.textContent = `wins`;
 
+                restartPopUp.prepend(win);
                 restartPopUp.prepend(heartIcon);
-            }
+            } 
         }
 
         if (hasWon) {
             disableGameBoard();
             highlighWinningCombo();
-            setTimeout(alertWinner, 400);
+            setTimeout(alertWinner, 700);
         // if there are no empty cells left it's a draw
         } else if (getEmptyCells().emptyCells.length === 0) {
-            // mock. will add some pop-up later
-            alert ('draw');
+            restartPopUp.style.display = 'grid';
+            darkBackground.style.display = 'grid';
+            const draw = document.createElement('p');
+            draw.textContent = `It's a draw`;
+
+            restartPopUp.prepend(draw);
         }
 
         return hasWon;  
