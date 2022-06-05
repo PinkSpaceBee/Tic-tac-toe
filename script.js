@@ -48,7 +48,7 @@ const gameController = (function() {
         );
 
         function highlighWinningCombo() {
-            hasWon.forEach(elem => gameboard[elem].style.backgroundColor = 'yellow');          
+            hasWon.forEach(elem => gameboard[elem].classList.add('highlight'));          
         }
 
         function disableGameBoard() {
@@ -58,6 +58,10 @@ const gameController = (function() {
 
         function alertWinner() {
             const restartPopUp = document.querySelector('#js-restart-game');
+            const darkBackground = document.querySelector('#js-darken-bg');
+
+            restartPopUp.style.display = 'grid';
+            darkBackground.style.display = 'grid';
             if (winner === 'x') {
                 const xMark = document.createElement('p');
                 xMark.classList.add('xMark');
@@ -76,7 +80,7 @@ const gameController = (function() {
         if (hasWon) {
             disableGameBoard();
             highlighWinningCombo();
-            alertWinner();
+            setTimeout(alertWinner, 400);
         // if there are no empty cells left it's a draw
         } else if (getEmptyCells().emptyCells.length === 0) {
             // mock. will add some pop-up later
@@ -89,10 +93,10 @@ const gameController = (function() {
     function checkTurnComputer() {
         if (!determineWinner(humanPlayer.placedMarks, humanPlayer.mark)) {
             if (computerPlayer.mark === 'x') {
-                makeMoveComputer();
+                setTimeout(makeMoveComputer, 300);
             } else if (computerPlayer.mark === 'o') {
                 if (humanPlayer.placedMarks.length > computerPlayer.placedMarks.length) {
-                    makeMoveComputer();
+                    setTimeout(makeMoveComputer, 300);
                 }
             }
         }
