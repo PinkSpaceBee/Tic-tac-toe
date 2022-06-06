@@ -73,16 +73,38 @@ button {
     max-width: 360px;
     height: 22vh;
 
+    @include for-phone-landscape;
+    @include for-phone {
+        width: 80vw;
+        font-size: 26px;
+    }
+
     padding-bottom: 1em; 
     border-style: outset;
     font: $regular 22px $roboto-mono;
 
     background-color: mix($cupid, #fff, 60%);
+    
+    :nth-child(1) {
+        transform: scale(1.2);
+    }
+
+    & .draw {
+        transform: scale(1);
+        place-self: center;
+        grid-column: span 2;
+    }
 
     .js-restart-btn {
         grid-area: foot;        
         place-self: center;
+        width: 100%;
+
+        @include for-phone-landscape;
+        @include for-phone {
+            font: $regular 20px $roboto-mono;
         }
+    }        
 }
 
 .highlight {

@@ -120,9 +120,23 @@ button {
   border-style: outset;
   font: 400 22px "Roboto Mono", monospace;
   background-color: #fcd7e4; }
+  @media (max-width: 599px) {
+    #js-restart-game {
+      width: 80vw;
+      font-size: 26px; } }
+  #js-restart-game :nth-child(1) {
+    transform: scale(1.2); }
+  #js-restart-game .draw {
+    transform: scale(1);
+    place-self: center;
+    grid-column: span 2; }
   #js-restart-game .js-restart-btn {
     grid-area: foot;
-    place-self: center; }
+    place-self: center;
+    width: 100%; }
+    @media (max-width: 599px) {
+      #js-restart-game .js-restart-btn {
+        font: 400 20px "Roboto Mono", monospace; } }
 
 .highlight {
   background-color: #fff7cc; }
