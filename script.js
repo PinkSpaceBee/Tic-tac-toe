@@ -93,6 +93,7 @@ const gameController = (function() {
             restartPopUp.style.display = 'grid';
             darkBackground.style.display = 'grid';
             const draw = document.createElement('p');
+            draw.classList.add('draw');
             draw.textContent = `It's a draw`;
 
             restartPopUp.prepend(draw);
