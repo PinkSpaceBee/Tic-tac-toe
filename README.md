@@ -9,4 +9,5 @@ For the styling part, I used Sass. The project is super small, so I could forego
 
 I'm going to move to other projects now, but I'm definitely returning to this tic-tac-toe game to dip into the minimax algorithm, it sounds like so much fun! 
 
-Anyway, a link to the Git Pages: 
+Anyway, a link to the Git Pages:
+https://pinkspacebee.github.io/Tic-tac-toe/
