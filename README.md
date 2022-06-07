@@ -5,7 +5,7 @@ It's a simple tic-tac-toe game, and yes, I know I have to cut down on pink. I le
 I used the Module Pattern to separate private methods and variables from the public ones. It took me some tome to get it, but it's an elegant pattern, love it. Can't wait to try and compare it to the ES6 modules. 
 Also, I used factory functions as an alternative to constructors. I ended up liking it.
 
-For the styling part, I used Sass. The project is super small, so I could forego Sass and get the same result with plain CSS. But I thought it would't hurt to practice Sass a bit more. To implement responsive layout, I used grid. I love it for its flexibility and an impressive number of features to play with. 
+For the styling part, I used Sass. The project is super small, so I could forego Sass and get the same result with plain CSS, but I thought it would't hurt to practice Sass a bit more. To implement responsive layout, I used grid. I love it for its flexibility and an impressive number of features to play with. 
 
 I'm going to move to other projects now, but I'm definitely returning to this tic-tac-toe game to dip into the minimax algorithm, it sounds like so much fun! 
 
